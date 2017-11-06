@@ -435,6 +435,119 @@
 .end method
 
 .method public static getRowIcon(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+    .locals 2
+
+    :try_start_0
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/ExpandedNotification;->getPackageName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Landroid/content/pm/PackageManager;->getResourcesForApplication(Ljava/lang/String;)Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/ExpandedNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v1
+
+    iget v1, v1, Landroid/app/Notification;->icon:I
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    invoke-static {p0, v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->highlightImage(Landroid/content/Context;Landroid/graphics/drawable/Drawable;)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    if-nez v0, :cond_0
+
+    invoke-static {p0, p1}, Lcom/android/systemui/statusbar/BaseStatusBar;->getRowIcon_origin(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result-object v0
+
+    :cond_0
+    :goto_0
+    return-object v0
+
+    :catch_0
+    move-exception v1
+
+    invoke-static {p0, p1}, Lcom/android/systemui/statusbar/BaseStatusBar;->getRowIcon_origin(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    goto :goto_0
+
+.end method
+
+.method public static getRowIcon2(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+    .locals 3
+
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/ExpandedNotification;->getPackageName()Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v0, "com.android.incallui"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    const-string v0, "com.android.phone"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    const-string v0, "com.android.server.telecom"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/ExpandedNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v1
+
+    iget-object v1, v1, Landroid/app/Notification;->largeIcon:Landroid/graphics/Bitmap;
+
+    if-eqz v1, :cond_0
+
+    new-instance v0, Landroid/graphics/drawable/BitmapDrawable;
+
+    invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v2
+
+    invoke-direct {v0, v2, v1}, Landroid/graphics/drawable/BitmapDrawable;-><init>(Landroid/content/res/Resources;Landroid/graphics/Bitmap;)V
+
+    goto :goto_0
+
+    :cond_0
+    invoke-static {p0, p1}, Lcom/android/systemui/statusbar/BaseStatusBar;->getRowIcon_origin(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    :goto_0
+    return-object v0
+.end method
+
+.method public static getRowIcon_origin(Landroid/content/Context;Lcom/android/systemui/statusbar/ExpandedNotification;)Landroid/graphics/drawable/Drawable;
+    
     .locals 11
 
     const/4 v10, 0x1
